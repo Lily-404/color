@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { styles } from '../styles/styles';
 
-const ColorCard = ({ color, onMouseEnter, onMouseLeave }) => {
+const ColorCard = ({ color, onMouseEnter, onMouseLeave, onDelete }) => {
   const [copied, setCopied] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [showDeleteButton, setShowDeleteButton] = useState(false);
 
   useEffect(() => {
     const rgb = hexToRgb(color.hex);
@@ -24,14 +25,31 @@ const ColorCard = ({ color, onMouseEnter, onMouseLeave }) => {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(color.hex);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    if (!showDeleteButton) {
+      navigator.clipboard.writeText(color.hex);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    onDelete && onDelete(color);
   };
 
   return (
     <div
       onClick={copyToClipboard}
+      onMouseEnter={() => {
+        setShowDeleteButton(true);
+        onMouseEnter && onMouseEnter();
+      }}
+      onMouseLeave={(e) => {
+        setShowDeleteButton(false);
+        e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        onMouseLeave && onMouseLeave();
+      }}
       style={{
         ...styles.colorCard.base,
         backgroundColor: color.hex
@@ -51,12 +69,6 @@ const ColorCard = ({ color, onMouseEnter, onMouseLeave }) => {
           ${rotateY / 2}px ${rotateX / 2}px 15px rgba(0, 0, 0, 0.1)
         `;
       }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-        onMouseLeave && onMouseLeave();
-      }}
-      onMouseEnter={() => onMouseEnter && onMouseEnter()}
     >
       <div
         style={{
@@ -79,6 +91,41 @@ const ColorCard = ({ color, onMouseEnter, onMouseLeave }) => {
       {copied && (
         <div style={styles.colorCard.copyMessage}>
           已复制
+        </div>
+      )}
+      {showDeleteButton && (
+        <div
+          onClick={handleDelete}
+          style={{
+            position: 'absolute',
+            top: '8px',
+            right: '8px',
+            width: '24px',
+            height: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.1)',
+            color: isDark ? '#fff' : '#000',
+            borderRadius: '12px',
+            cursor: 'pointer',
+            opacity: '0.8',
+            transition: 'all 0.2s ease',
+            backdropFilter: 'blur(8px)',
+            zIndex: 10
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.opacity = '1';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.opacity = '0.8';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </div>
       )}
     </div>

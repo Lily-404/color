@@ -9,6 +9,12 @@ const HomePage = () => {
   const [colors, setColors] = useState(initialColors);
   const navigate = useNavigate();
 
+  const handleDeleteColor = (colorToDelete) => {
+    const updatedColors = colors.filter(color => color.hex !== colorToDelete.hex);
+    setColors(updatedColors);
+    localStorage.setItem('colors', JSON.stringify(updatedColors));
+  };
+
   useEffect(() => {
     const savedColors = localStorage.getItem('colors');
     if (savedColors) {
@@ -40,9 +46,10 @@ const HomePage = () => {
             <ColorCard
               key={color.hex}
               color={color}
-              //根据卡片颜色设置背景颜色
-              // onMouseEnter={() => setHoverColor(color.hex)}
-              onMouseLeave={() => setHoverColor(null)}
+              onMouseEnter={() => setHoverColor(color.hex)}
+              //保留了上一个颜色的状态
+              // onMouseLeave={() => setHoverColor(null)}
+              onDelete={handleDeleteColor}
             />
           ))}
         </div>
