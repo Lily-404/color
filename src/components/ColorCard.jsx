@@ -60,13 +60,13 @@ const ColorCard = ({ color, onMouseEnter, onMouseLeave, onDelete }) => {
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 10;
-        const rotateY = -(x - centerX) / 10;
+        const rotateX = (y - centerY) / 5; // 增加旋转角度
+        const rotateY = -(x - centerX) / 5;
 
-        e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+        e.currentTarget.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.08, 1.08, 1.08)`;
         e.currentTarget.style.boxShadow = `
-          0 15px 35px rgba(0, 0, 0, 0.2),
-          ${rotateY / 2}px ${rotateX / 2}px 15px rgba(0, 0, 0, 0.1)
+          0 20px 50px rgba(0, 0, 0, 0.3),
+          ${rotateY}px ${rotateX}px 20px rgba(0, 0, 0, 0.15)
         `;
       }}
     >
