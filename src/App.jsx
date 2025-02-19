@@ -141,7 +141,7 @@ const ColorCard = ({ color }) => {
             animation: 'fadeIn 0.2s ease-out',
           }}
         >
-          已复制！
+          已复制
         </div>
       )}
     </div>
@@ -152,6 +152,7 @@ const AddColorPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ hex: '', name: '' });
   const [error, setError] = useState('');
+  const [previewColor, setPreviewColor] = useState('#FFFFFF');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -180,16 +181,18 @@ const AddColorPage = () => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f6f7f9 0%, #ffffff 100%)',
+      background: `linear-gradient(135deg, ${previewColor}20 0%, #ffffff 100%)`,
       padding: '40px 20px',
+      transition: 'background 0.3s ease',
     }}>
       <div style={{
         maxWidth: '600px',
         margin: '0 auto',
-        background: 'white',
-        borderRadius: '16px',
-        padding: '32px',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        background: 'rgba(255, 255, 255, 0.9)',
+        backdropFilter: 'blur(10px)',
+        borderRadius: '24px',
+        padding: '40px',
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
       }}>
         <h1 style={{
           textAlign: 'center',
@@ -216,15 +219,22 @@ const AddColorPage = () => {
             <input
               type="text"
               value={formData.hex}
-              onChange={(e) => setFormData({ ...formData, hex: e.target.value })}
+              onChange={(e) => {
+                const value = e.target.value;
+                setFormData({ ...formData, hex: value });
+                if (/^#([A-Fa-f0-9]{6})$/.test(value)) {
+                  setPreviewColor(value);
+                }
+              }}
               placeholder="#FF0000"
               style={{
                 width: '100%',
-                padding: '12px',
-                borderRadius: '8px',
-                border: '1px solid #ddd',
+                padding: '16px',
+                borderRadius: '12px',
+                border: '2px solid #eee',
                 fontSize: '16px',
                 outline: 'none',
+                transition: 'all 0.3s ease',
               }}
             />
           </div>
@@ -246,11 +256,12 @@ const AddColorPage = () => {
               placeholder="例如：经典红"
               style={{
                 width: '100%',
-                padding: '12px',
-                borderRadius: '8px',
-                border: '1px solid #ddd',
+                padding: '16px',
+                borderRadius: '12px',
+                border: '2px solid #eee',
                 fontSize: '16px',
                 outline: 'none',
+                transition: 'all 0.3s ease',
               }}
             />
           </div>
@@ -268,14 +279,15 @@ const AddColorPage = () => {
               type="button"
               onClick={() => navigate('/')}
               style={{
-                padding: '12px 24px',
-                borderRadius: '8px',
-                border: '1px solid #ddd',
-                background: 'white',
+                padding: '16px 32px',
+                borderRadius: '12px',
+                border: '2px solid #eee',
+                background: 'transparent',
                 color: '#1a1a1a',
                 cursor: 'pointer',
                 fontSize: '16px',
-                fontWeight: '500',
+                fontWeight: '600',
+                transition: 'all 0.3s ease',
               }}
             >
               取消
@@ -283,14 +295,16 @@ const AddColorPage = () => {
             <button
               type="submit"
               style={{
-                padding: '12px 24px',
-                borderRadius: '8px',
+                padding: '16px 32px',
+                borderRadius: '12px',
                 border: 'none',
-                background: '#007AFF',
+                background: 'linear-gradient(135deg, #007AFF 0%, #00C6FB 100%)',
                 color: 'white',
                 cursor: 'pointer',
                 fontSize: '16px',
-                fontWeight: '500',
+                fontWeight: '600',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 15px rgba(0, 122, 255, 0.3)',
               }}
             >
               添加
@@ -331,26 +345,32 @@ const HomePage = () => {
         <button
           onClick={() => navigate('/add')}
           style={{
-            position: 'absolute',
-            right: '0',
-            top: '0',
-            padding: '12px 24px',
-            borderRadius: '8px',
+            position: 'fixed',
+            right: '40px',
+            bottom: '40px',
+            width: '60px',
+            height: '60px',
+            borderRadius: '30px',
             border: 'none',
-            background: '#007AFF',
+            background: 'rgba(0, 122, 255, 0.9)',
+            backdropFilter: 'blur(10px)',
             color: 'white',
             cursor: 'pointer',
-            fontSize: '16px',
-            fontWeight: '500',
+            fontSize: '24px',
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
+            justifyContent: 'center',
+            boxShadow: '0 8px 32px rgba(0, 122, 255, 0.25)',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            '&:hover': {
+              transform: 'translateY(-2px)',
+              boxShadow: '0 12px 40px rgba(0, 122, 255, 0.35)',
+            },
           }}
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 4V16M4 10H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          添加颜色
         </button>
         <h1 style={{
           textAlign: 'center',
