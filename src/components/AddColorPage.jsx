@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styles } from '../styles/styles';
 import { initialColors } from '../constants/colors';
+import { HexColorPicker } from 'react-colorful';
 
 const AddColorPage = () => {
   const navigate = useNavigate();
@@ -45,8 +46,18 @@ const AddColorPage = () => {
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '20px' }}>
             <label style={styles.addColorPage.label}>
-              颜色代码
+              选择颜色
             </label>
+            <div style={{ marginBottom: '15px' }}>
+              <HexColorPicker
+                color={formData.hex || '#ffffff'}
+                onChange={(color) => {
+                  setFormData({ ...formData, hex: color });
+                  setPreviewColor(color);
+                }}
+                style={{ width: '100%', height: '200px' }}
+              />
+            </div>
             <input
               type="text"
               value={formData.hex}

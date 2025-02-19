@@ -25,11 +25,9 @@ const ColorCard = ({ color, onMouseEnter, onMouseLeave, onDelete }) => {
   };
 
   const copyToClipboard = () => {
-    if (!showDeleteButton) {
-      navigator.clipboard.writeText(color.hex);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    }
+    navigator.clipboard.writeText(color.hex);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 800);
   };
 
   const handleDelete = (e) => {
@@ -60,13 +58,13 @@ const ColorCard = ({ color, onMouseEnter, onMouseLeave, onDelete }) => {
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 5; // 增加旋转角度
-        const rotateY = -(x - centerX) / 5;
+        const rotateX = (y - centerY) / 3; // 增加旋转角度
+        const rotateY = -(x - centerX) / 3;
 
-        e.currentTarget.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.08, 1.08, 1.08)`;
+        e.currentTarget.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.1, 1.1, 1.1)`;
         e.currentTarget.style.boxShadow = `
-          0 20px 50px rgba(0, 0, 0, 0.3),
-          ${rotateY}px ${rotateX}px 20px rgba(0, 0, 0, 0.15)
+          0 25px 60px rgba(0, 0, 0, 0.4),
+          ${rotateY/2}px ${rotateX/2}px 30px rgba(0, 0, 0, 0.2)
         `;
       }}
     >

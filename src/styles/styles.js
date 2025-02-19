@@ -33,7 +33,7 @@ export const styles = {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      backgroundColor: 'rgba(0, 0, 0, 0.85)',
+      backgroundColor: 'rgba(0, 0, 0, 0.72)',
       color: 'white',
       padding: '8px 16px',
       borderRadius: '8px',
