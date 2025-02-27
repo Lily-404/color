@@ -94,72 +94,175 @@ export const styles = {
     container: {
       minHeight: '100vh',
       padding: '40px 20px',
-      transition: 'background 0.3s ease'
+      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.8))',
+      backdropFilter: 'blur(20px) saturate(180%)'
     },
     form: {
-      maxWidth: '600px',
+      maxWidth: '800px',
       margin: '0 auto',
-      background: 'rgba(255, 255, 255, 0.9)',
-      backdropFilter: 'blur(10px)',
-      borderRadius: '24px',
-      padding: '40px',
-      boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)'
+      background: 'rgba(255, 255, 255, 0.8)',
+      backdropFilter: 'blur(16px) saturate(180%)',
+      borderRadius: '28px',
+      padding: '48px',
+      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 8px 24px -8px rgba(0, 0, 0, 0.08)',
+      border: '1px solid rgba(255, 255, 255, 0.3)',
+      transform: 'translateY(0)',
+      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
     },
-    title: {
-      textAlign: 'center',
+    subtitle: {
       color: '#1a1a1a',
-      fontSize: '2rem',
+      fontSize: '1.75rem',
       fontWeight: '700',
       marginBottom: '32px',
-      fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+      fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+      background: 'linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%)',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      letterSpacing: '-0.02em'
     },
     input: {
-      width: '100%',
-      padding: '16px',
-      borderRadius: '12px',
-      border: '2px solid #eee',
+      width: 'calc(100% - 36px)',
+      padding: '18px',
+      borderRadius: '16px',
+      border: '2px solid rgba(238, 238, 238, 0.8)',
       fontSize: '16px',
       outline: 'none',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      background: 'rgba(255, 255, 255, 0.8)',
+      backdropFilter: 'blur(8px)',
+      '&:focus': {
+        border: '2px solid rgba(0, 122, 255, 0.5)',
+        boxShadow: '0 0 0 4px rgba(0, 122, 255, 0.1)',
+        background: 'rgba(255, 255, 255, 0.95)'
+      },
+      '&::placeholder': {
+        color: 'rgba(0, 0, 0, 0.4)'
+      }
     },
     label: {
       display: 'block',
-      marginBottom: '8px',
-      fontWeight: '500',
-      color: '#1a1a1a'
+      marginBottom: '10px',
+      fontWeight: '600',
+      color: '#1a1a1a',
+      fontSize: '15px',
+      letterSpacing: '0.01em'
     },
     error: {
       color: '#FF3B30',
       marginBottom: '20px',
-      fontSize: '14px'
+      fontSize: '14px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px',
+      opacity: '0.9'
     },
     buttonGroup: {
       display: 'flex',
-      gap: '12px',
-      justifyContent: 'flex-end'
+      gap: '16px',
+      justifyContent: 'flex-end',
+      marginTop: '32px'
     },
     cancelButton: {
       padding: '16px 32px',
-      borderRadius: '12px',
-      border: '2px solid #eee',
-      background: 'transparent',
+      borderRadius: '16px',
+      border: '2px solid rgba(238, 238, 238, 0.8)',
+      background: 'rgba(255, 255, 255, 0.8)',
       color: '#1a1a1a',
       cursor: 'pointer',
       fontSize: '16px',
       fontWeight: '600',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      backdropFilter: 'blur(8px)',
+      '&:hover': {
+        background: 'rgba(238, 238, 238, 0.8)',
+        transform: 'translateY(-2px)'
+      }
     },
     submitButton: {
-      padding: '16px 32px',
-      borderRadius: '12px',
+      padding: '16px 36px',
+      borderRadius: '16px',
       border: 'none',
       background: 'linear-gradient(135deg, #007AFF 0%, #00C6FB 100%)',
       color: 'white',
       cursor: 'pointer',
       fontSize: '16px',
       fontWeight: '600',
-      transition: 'all 0.3s ease',
-      boxShadow: '0 4px 15px rgba(0, 122, 255, 0.3)'
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      boxShadow: '0 8px 24px rgba(0, 122, 255, 0.3)',
+      '&:hover': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 12px 28px rgba(0, 122, 255, 0.35)'
+      }
+    },
+    generateButton: {
+      width: '100%',
+      padding: '18px 36px',
+      marginTop: '16px',
+      borderRadius: '16px',
+      border: 'none',
+      background: 'linear-gradient(135deg,rgb(44, 49, 56) 0%, #FF8E53 100%)',
+      color: 'white',
+      cursor: 'pointer',
+      fontSize: '16px',
+      fontWeight: '600',
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      boxShadow: '0 8px 24px rgba(255, 107, 107, 0.25)',
+      '&:hover': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 12px 28px rgba(255, 107, 107, 0.3)'
+      },
+      '&:disabled': {
+        opacity: '0.7',
+        cursor: 'not-allowed',
+        transform: 'none'
+      }
+    },
+    previewTitle: {
+      fontSize: '1.3rem',
+      fontWeight: '600',
+      color: '#1a1a1a',
+      marginBottom: '20px',
+      marginTop: '32px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px',
+      '&::before': {
+        content: '""',
+        display: 'block',
+        width: '4px',
+        height: '24px',
+        background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%)',
+        borderRadius: '2px'
+      }
+    },
+    previewGrid: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '16px',
+      marginBottom: '24px',
+      padding: '16px',
+      background: 'rgba(255, 255, 255, 0.5)',
+      borderRadius: '20px',
+      border: '1px solid rgba(255, 255, 255, 0.3)',
+      backdropFilter: 'blur(8px)'
+    },
+    saveButton: {
+      width: '100%',
+      padding: '18px 36px',
+      borderRadius: '16px',
+      border: 'none',
+      background: 'linear-gradient(135deg, #34C759 0%, #2ECC71 100%)',
+      color: 'white',
+      cursor: 'pointer',
+      fontSize: '16px',
+      fontWeight: '600',
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      boxShadow: '0 8px 24px rgba(46, 204, 113, 0.25)',
+      '&:hover': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 12px 28px rgba(46, 204, 113, 0.3)'
+      }
     }
   }
 };
