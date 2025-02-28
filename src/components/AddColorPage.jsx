@@ -14,7 +14,6 @@ const AddColorPage = () => {
   const [description, setDescription] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedColors, setGeneratedColors] = useState([]);
-  const [apiKey, setApiKey] = useState(localStorage.getItem('moonshotApiKey') || '');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,23 +44,25 @@ const AddColorPage = () => {
       setError('请输入颜色风格描述');
       return;
     }
-    if (!apiKey.trim()) {
-      setError('请输入API密钥');
-      return;
-    }
     setIsGenerating(true);
     setError('');
     try {
-      const colors = await generateColorScheme(description, apiKey);
+      const colors = await generateColorScheme(description);
       if (colors && colors.length > 0) {
         setGeneratedColors(colors);
-        localStorage.setItem('moonshotApiKey', apiKey);
       }
     } catch (error) {
       setError(error.message);
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleSaveGeneratedColors = () => {
+    if (generatedColors.length === 0) return;
+    const existingColors = JSON.parse(localStorage.getItem('colors') || JSON.stringify(initialColors));
+    localStorage.setItem('colors', JSON.stringify([...existingColors, ...generatedColors]));
+    navigate('/');
   };
 
   return (
@@ -72,19 +73,9 @@ const AddColorPage = () => {
       <div style={styles.addColorPage.form}>
         <div style={{ marginBottom: '40px' }}>
           <h2 style={styles.addColorPage.subtitle}>
-            AI配色
+            AI配色方案生成
           </h2>
           <div style={{ marginBottom: '20px' }}>
-            <label style={styles.addColorPage.label}>
-              API密钥
-            </label>
-            <input
-              type="text"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              placeholder="请输入Moonshot API密钥"
-              style={styles.addColorPage.input}
-            />
             <label style={styles.addColorPage.label}>
               描述颜色风格
             </label>

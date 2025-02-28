@@ -201,7 +201,7 @@ export const styles = {
       marginTop: '16px',
       borderRadius: '16px',
       border: 'none',
-      background: 'linear-gradient(135deg,rgb(44, 49, 56) 0%, #FF8E53 100%)',
+      background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%)',
       color: 'white',
       cursor: 'pointer',
       fontSize: '16px',
